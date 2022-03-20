@@ -1,5 +1,23 @@
 # @dnd-kit/sortable
 
+## 7.0.0
+
+### Major Changes
+
+- [#660](https://github.com/clauderic/dnd-kit/pull/660) [`30bbd12`](https://github.com/clauderic/dnd-kit/commit/30bbd12f9606c2e99523cb9ece465041cb37e916) Thanks [@clauderic](https://github.com/clauderic)! - The default `sortableKeyboardCoordinates` function that is exported from the `@dnd-kit/sortable` package has been updated to better handle cases where the collision rectangle is overlapping droppable rectangles. For example, for `down` arrow key, the default function had logic that would only consider collisions against droppables that were below the `bottom` edge of the collision rect. This was problematic when the collision rect was overlapping droppable rects, because it meant that it's bottom edge was below the top edge of the droppable, and that resulted in that droppable being skipped.
+
+  ```diff
+  - collisionRect.bottom > droppableRect.top
+  + collisionRect.top > droppableRect.top
+  ```
+
+  This change should be backwards compatible for most consumers, but may introduce regressions in some use-cases, especially for consumers that may have copied the multiple containers examples. There is now a custom sortable keyboard coordinate getter [optimized for multiple containers that you can refer to](https://github.com/clauderic/dnd-kit/tree/master/stories/2%20-%20Presets/Sortable/multipleContainersKeyboardCoordinates.ts).
+
+### Patch Changes
+
+- Updated dependencies [[`a41e5b8`](https://github.com/clauderic/dnd-kit/commit/a41e5b8eff84f0528ffc8b3455b94b95ab60a4a9), [`a41e5b8`](https://github.com/clauderic/dnd-kit/commit/a41e5b8eff84f0528ffc8b3455b94b95ab60a4a9), [`a41e5b8`](https://github.com/clauderic/dnd-kit/commit/a41e5b8eff84f0528ffc8b3455b94b95ab60a4a9), [`77e3d44`](https://github.com/clauderic/dnd-kit/commit/77e3d44502383d2f9a9f9af014b053619b3e37b3), [`e6e242c`](https://github.com/clauderic/dnd-kit/commit/e6e242cbc718ed687a26f5c622eeed4dbd6c2425), [`c1b3b5a`](https://github.com/clauderic/dnd-kit/commit/c1b3b5a0be5759b707e22c4e1b1236aaa82773a2)]:
+  - @dnd-kit/core@5.1.0
+
 ## 6.0.1
 
 ### Patch Changes
